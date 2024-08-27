@@ -10,6 +10,7 @@ export const getProducts = (products)=>{
 // thunk action for getting product
 export const getProductsThunk =()=> async (dispatch)=>{
     const response = fetch('/api/products')
+    console.log(response)
     const data = await response.json()
     if(response.ok){
         dispatch(getProducts(data))

@@ -3,21 +3,31 @@ import './App.css';
 import {
   Container,
   Grid,
-  GridItem
+  GridItem,
+  Heading
 } from '@chakra-ui/react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { productComp } from './components';
+import { useEffect } from 'react';
+import { getProductsThunk } from './store/product';
 function App() {
-
-  const products = useSelector(state=>state.products)
-  console.log(products)
+  const dispatch = useDispatch()
+  const products = useSelector(state => state.products)
   const productsList = Object.values(products)
+  console.log('this is products', productsList)
+
+  useEffect(()=>{
+    dispatch(getProductsThunk())
+  },[])
   return (
     <div>
       <Container className='products-container'>
         <Grid templateColumns='repeat(5, 1fr)' gap={6}>
-          {!productsList ? <h2>No products listed</h2>
-            : productsList.map(product=><GridItem><productComp product={product}></productComp></GridItem>)
+          {!productsList.length ?
+          <Heading as='h4' size='md'>
+            No products listed
+          </Heading>
+            : productsList.map(product => <GridItem><productComp product={product}></productComp></GridItem>)
           }
         </Grid>
       </Container>
