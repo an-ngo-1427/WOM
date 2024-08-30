@@ -1,3 +1,3 @@
 package com.example.restservice;
 
-public record Greeting(long id, String content) { }
+public record Product(long id, String name, String description,float price, int quantity) { }
